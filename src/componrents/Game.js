@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 const Game = () => {
   const [nextPlayer, setNextPlayer] = useState(true)
+  const [turns, setTurns] = useState(0)
 
   const [player1, setPlayer1] = useState({
     a1:false,a2:false,a3:false,
@@ -24,7 +25,7 @@ const Game = () => {
       player1.b1 && player1.b2 && player1.b3 ||
       player1.c1 && player1.c2 && player1.c3 ||
       player1.a1 && player1.b1 && player1.c1 ||
-      player1.a2 && player1.b2 && player1.c3 ||
+      player1.a2 && player1.b2 && player1.c2 ||
       player1.a3 && player1.b3 && player1.c3 ||
       player1.a1 && player1.b2 && player1.c3 ||
       player1.c1 && player1.b2 && player1.a3){
@@ -34,9 +35,11 @@ const Game = () => {
         player2.a1 && player2.a2 && player2.a3 ||
         player2.b1 && player2.b2 && player2.b3 ||
         player2.c1 && player2.c2 && player2.c3 ||
+
         player2.a1 && player2.b1 && player2.c1 ||
-        player2.a2 && player2.b2 && player2.c3 ||
+        player2.a2 && player2.b2 && player2.c2 ||
         player2.a3 && player2.b3 && player2.c3 ||
+        
         player2.a1 && player2.b2 && player2.c3 ||
         player2.c1 && player2.b2 && player2.a3){
           setPlayer2({winner:true})
@@ -48,14 +51,14 @@ const Game = () => {
     event.target.innerText = nextPlayer ? "x" : "o";
     nextPlayer ? setPlayer1({...player1, [field]:true}) : setPlayer2({...player2, [field]:true})
     setNextPlayer(!nextPlayer)
+    setTurns(prev => prev = prev + 1)
     console.log("field:", field, "nextPlayer:", nextPlayer);
     console.log("player1", player1);
     console.log("player2", player2);
   }
-
-  return (
-    <>
-    {/* <ChickenDinner player1={player1} player2={player2}/> */}
+  return turns < 9 ?
+   (<>
+    
     <div>
       <h1>{player1.winner && "Player One wins"}</h1>
       <h1>{player2.winner && "Player Two wins"}</h1>
@@ -73,8 +76,12 @@ const Game = () => {
       <div className="c2 c field"></div>
       <div className="c3 c field"></div>
     </div>    
-    </>
-  );
+  </>)
+  :
+    (<div>
+      <h1>Spiel zuende</h1>
+    </div>)
+
 };
 
 export default Game;
