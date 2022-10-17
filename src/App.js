@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import Game from "./componrents/Game";
 
-
-
 function App() {
   const [player1name, setPlayer1name] = useState("");
   const [player2name, setPlayer2name] = useState("");
+  
   useEffect(()=>{
    const newName1 = prompt("Wie ist dein Name Spieler 1?", "Player1")
    const newName2 = prompt("Wie ist dein Name Spieler 2?", "Player2")
@@ -16,12 +15,15 @@ function App() {
    setPlayer2name(newName2)
   },[])
 
+
+
   const [player1, setPlayer1] = useState({
     a1:false,a2:false,a3:false,
     b1:false,b2:false,b3:false,
     c1:false,c2:false,c3:false,
     wins:0
   })
+
   const [player2, setPlayer2] = useState({
     a1:false,a2:false,a3:false,
     b1:false,b2:false,b3:false,
@@ -47,6 +49,7 @@ function App() {
           wins: player1.wins+1, winner:true})
       }  
   }, [player1])
+
   useEffect(()=>{ 
       if(
         player2.a1 && player2.a2 && player2.a3 ||
@@ -65,6 +68,7 @@ function App() {
             wins: player2.wins+1, winner:true})
         }
   }, [player2])
+
   return (
     <div className="App">
       <h1>TicTacToe</h1>

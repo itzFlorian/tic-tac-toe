@@ -1,5 +1,5 @@
 import "../styles/game.css"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import GameOver from "./GameOver";
 import ChickenDinner from "./ChickenDinner";
 
@@ -22,7 +22,6 @@ const Game = ({player1name, player2name, player1, player2, setPlayer1, setPlayer
 
     setNextPlayer(!nextPlayer)
     setTurns(prev => prev = prev + 1)
-    // console.log("field:", field, "nextPlayer:", nextPlayer);
     console.log("player1", player1);
     console.log("player2", player2);
   }
@@ -46,10 +45,11 @@ const Game = ({player1name, player2name, player1, player2, setPlayer1, setPlayer
   }
 
   return !player1.winner && !player2.winner && turns >= 9 ?
-   (<GameOver restart={restart}/>) 
+    (<GameOver restart={restart}/>) 
     :
-   (<ChickenDinner restart={restart} klickHandler={klickHandler} player1={player1} player2={player2} player1name={player1name} player2name={player2name}/>)
+    (<ChickenDinner restart={restart} klickHandler={klickHandler} player1={player1} player2={player2} player1name={player1name} player2name={player2name}/>
+    )
+  }
 
-};
 
 export default Game;
