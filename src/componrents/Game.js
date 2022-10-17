@@ -3,18 +3,20 @@ import { useState, useEffect } from "react";
 import GameOver from "./GameOver";
 
 
-const Game = (name1, name2) => {
+const Game = (player1name, player2name) => {
   const [nextPlayer, setNextPlayer] = useState(true)
   const [turns, setTurns] = useState(0)
+  console.log("name1", player1name);
+  console.log("name2", player2name);
   const [player1, setPlayer1] = useState({
-    // name:name1,
+    name:player1name.player1name,
     a1:false,a2:false,a3:false,
     b1:false,b2:false,b3:false,
     c1:false,c2:false,c3:false,
     winner:false
   })
   const [player2, setPlayer2] = useState({
-    // name:name2,
+    name:player1name.player2name,
     a1:false,a2:false,a3:false,
     b1:false,b2:false,b3:false,
     c1:false,c2:false,c3:false,
@@ -26,13 +28,17 @@ const Game = (name1, name2) => {
       player1.a1 && player1.a2 && player1.a3 ||
       player1.b1 && player1.b2 && player1.b3 ||
       player1.c1 && player1.c2 && player1.c3 ||
+
       player1.a1 && player1.b1 && player1.c1 ||
       player1.a2 && player1.b2 && player1.c2 ||
       player1.a3 && player1.b3 && player1.c3 ||
+
       player1.a1 && player1.b2 && player1.c3 ||
       player1.c1 && player1.b2 && player1.a3){
         setPlayer1({winner:true})
-      }
+      }  
+  }, [player1])
+  useEffect(()=>{ 
       if(
         player2.a1 && player2.a2 && player2.a3 ||
         player2.b1 && player2.b2 && player2.b3 ||
@@ -46,7 +52,7 @@ const Game = (name1, name2) => {
         player2.c1 && player2.b2 && player2.a3){
           setPlayer2({winner:true})
         }
-  }, [player1, player2])
+  }, [player2])
 
   const klickHandler = (event) => {
     const field = event.target.className.slice(0,2)
@@ -63,8 +69,8 @@ const Game = (name1, name2) => {
     setNextPlayer(!nextPlayer)
     setTurns(prev => prev = prev + 1)
     // console.log("field:", field, "nextPlayer:", nextPlayer);
-    // console.log("player1", player1);
-    // console.log("player2", player2);
+    console.log("player1", player1);
+    console.log("player2", player2);
   }
   const restart = () =>{
     setPlayer1({

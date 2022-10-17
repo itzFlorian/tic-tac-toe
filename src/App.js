@@ -4,21 +4,20 @@ import Game from "./componrents/Game";
 
 
 function App() {
-  // const [name1, setName1] = useState("");
-  // const [name2, setName2] = useState("");
-  // useEffect(()=>{
-  //  console.log("mount");
-  //  const name1 = prompt("Wie ist dein Name Spieler 1?")
-  //  const name2 = prompt("Wie ist dein Name Spieler 2?")
-  //  console.log(name1, name2);
-  //  setName1(name1)
-  //  setName2(name2)
-  // },[])
+  const [player1, setPlayer1] = useState("");
+  const [player2, setPlayer2] = useState("");
+  useEffect(()=>{
+   const newName1 = prompt("Wie ist dein Name Spieler 1?", "Player1")
+   const newName2 = prompt("Wie ist dein Name Spieler 2?", "Player2")
+
+   setPlayer1(newName1)
+   setPlayer2(newName2)
+  },[])
 
   return (
     <div className="App">
       <h1>TicTacToe</h1>
-      <Game />
+      <Game player1name={player1} player2name={player2}/>
     </div>
   );
 }
