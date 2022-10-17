@@ -14,8 +14,8 @@ const Field = ({restart, klickHandler}) => {
       <div className="c2 c field"></div>
       <div className="c3 c field"></div>
     </div>    
-    <div>
-      <button onClick={restart}> Restart</button>
+    <div >
+      <button className="main-restart" onClick={restart}> Restart</button>
     </div>
     </div>
   );

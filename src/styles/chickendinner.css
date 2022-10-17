@@ -1,0 +1,34 @@
+.grid-game{
+  margin: 50px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: 150px 150px 150px;
+}
+
+.field{
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.a {
+  border-bottom: 1px solid black;
+}
+.b{
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;;
+}
+.c{
+  border-top: 1px solid black;;
+}
+.a1, .b1, .c1{
+  border-right: 1px solid black;
+}
+.a2, .b2, .c2{
+  border-right: 1px solid black;
+}

@@ -1,11 +1,20 @@
 import Field from "./Field";
+import "../styles/chickendinner.css"
 
 const ChickenDinner = ({player1, player2, player1name, player2name, klickHandler, restart}) => {
   return ( 
     <>
     <div>
-      <p>{`${player1name} wins: ${player1.wins}`}</p>
-      <p>{`${player2name} wins: ${player2.wins}`}</p>
+      <table>
+        <tr>
+          <td>{player1name}</td>
+          <td>{player2name}</td>
+        </tr>
+        <tr>
+          <td>{player1.wins}</td>
+          <td>{player2.wins}</td>
+        </tr>
+      </table>
       <h3>{player1.winner && `${player1name} wins`}</h3>
       <h3>{player2.winner && `${player2name} wins`}</h3>
     </div>
