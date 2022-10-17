@@ -1,4 +1,4 @@
-const GameOver = (restart) => {
+const GameOver = ({restart}) => {
   return (
     <div>
       <h1>Spiel zuende</h1>

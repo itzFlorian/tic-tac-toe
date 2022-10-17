@@ -1,58 +1,12 @@
 import "../styles/game.css"
 import { useState, useEffect } from "react";
 import GameOver from "./GameOver";
+import ChickenDinner from "./ChickenDinner";
 
 
-const Game = (player1name, player2name) => {
+const Game = ({player1name, player2name, player1, player2, setPlayer1, setPlayer2}) => {
   const [nextPlayer, setNextPlayer] = useState(true)
   const [turns, setTurns] = useState(0)
-  console.log("name1", player1name);
-  console.log("name2", player2name);
-  const [player1, setPlayer1] = useState({
-    name:player1name.player1name,
-    a1:false,a2:false,a3:false,
-    b1:false,b2:false,b3:false,
-    c1:false,c2:false,c3:false,
-    winner:false
-  })
-  const [player2, setPlayer2] = useState({
-    name:player1name.player2name,
-    a1:false,a2:false,a3:false,
-    b1:false,b2:false,b3:false,
-    c1:false,c2:false,c3:false,
-    winner:false
-  })
-
-  useEffect(()=>{ 
-    if(
-      player1.a1 && player1.a2 && player1.a3 ||
-      player1.b1 && player1.b2 && player1.b3 ||
-      player1.c1 && player1.c2 && player1.c3 ||
-
-      player1.a1 && player1.b1 && player1.c1 ||
-      player1.a2 && player1.b2 && player1.c2 ||
-      player1.a3 && player1.b3 && player1.c3 ||
-
-      player1.a1 && player1.b2 && player1.c3 ||
-      player1.c1 && player1.b2 && player1.a3){
-        setPlayer1({winner:true})
-      }  
-  }, [player1])
-  useEffect(()=>{ 
-      if(
-        player2.a1 && player2.a2 && player2.a3 ||
-        player2.b1 && player2.b2 && player2.b3 ||
-        player2.c1 && player2.c2 && player2.c3 ||
-
-        player2.a1 && player2.b1 && player2.c1 ||
-        player2.a2 && player2.b2 && player2.c2 ||
-        player2.a3 && player2.b3 && player2.c3 ||
-
-        player2.a1 && player2.b2 && player2.c3 ||
-        player2.c1 && player2.b2 && player2.a3){
-          setPlayer2({winner:true})
-        }
-  }, [player2])
 
   const klickHandler = (event) => {
     const field = event.target.className.slice(0,2)
@@ -61,9 +15,9 @@ const Game = (player1name, player2name) => {
     player1[field] ? "x" : "o" ;
 
     nextPlayer ? 
-    player2[field] ? alert("nicht erlaubt") 
+    player2[field] ? setNextPlayer(!nextPlayer) 
     : setPlayer1({...player1, [field]:true}) : 
-    player1[field] ? alert("nichterlaubt") 
+    player1[field] ? setNextPlayer(!nextPlayer) 
     : setPlayer2({...player2, [field]:true})
 
     setNextPlayer(!nextPlayer)
@@ -72,18 +26,19 @@ const Game = (player1name, player2name) => {
     console.log("player1", player1);
     console.log("player2", player2);
   }
+
   const restart = () =>{
     setPlayer1({
       a1:false,a2:false,a3:false,
       b1:false,b2:false,b3:false,
       c1:false,c2:false,c3:false,
-      winner:false
+      wins:player1.wins, 
     })
     setPlayer2({
       a1:false,a2:false,a3:false,
       b1:false,b2:false,b3:false,
       c1:false,c2:false,c3:false,
-      winner:false
+      wins:player2.wins
     })
     setTurns(0)   
     const fields = document.querySelectorAll(".field") 
@@ -91,33 +46,9 @@ const Game = (player1name, player2name) => {
   }
 
   return !player1.winner && !player2.winner && turns >= 9 ?
-   (<div>
-    <h1>Spiel zuende</h1>
-    <button onClick={restart}> Restart</button>
-  </div>) 
+   (<GameOver restart={restart}/>) 
     :
-   (<>    
-    <div>
-      <h3>{player1.winner && `Player 1 wins`}</h3>
-      <h3>{player2.winner && `Player 2 wins`}</h3>
-    </div>
-    <div className="grid-game" onClick={(event) => klickHandler(event)}>
-      <div className="a1 a field"></div>
-      <div className="a2 a field"></div>
-      <div className="a3 a field"></div>
-
-      <div className="b1 b field"></div>
-      <div className="b2 b field"></div>
-      <div className="b3 b field"></div>
-
-      <div className="c1 c field"></div>
-      <div className="c2 c field"></div>
-      <div className="c3 c field"></div>
-    </div>    
-    <div>
-      <button onClick={restart}> Restart</button>
-    </div>
-  </>)
+   (<ChickenDinner restart={restart} klickHandler={klickHandler} player1={player1} player2={player2} player1name={player1name} player2name={player2name}/>)
 
 };
 
