@@ -2,24 +2,25 @@ import "../styles/game.css"
 import { useState, useEffect } from "react";
 
 
-const Game = () => {
+const Game = (name1, name2) => {
   const [nextPlayer, setNextPlayer] = useState(true)
   const [turns, setTurns] = useState(0)
-
   const [player1, setPlayer1] = useState({
+    // name:name1,
     a1:false,a2:false,a3:false,
     b1:false,b2:false,b3:false,
     c1:false,c2:false,c3:false,
     winner:false
   })
   const [player2, setPlayer2] = useState({
+    // name:name2,
     a1:false,a2:false,a3:false,
     b1:false,b2:false,b3:false,
     c1:false,c2:false,c3:false,
     winner:false
   })
 
-  useEffect(()=>{
+  useEffect(()=>{ 
     if(
       player1.a1 && player1.a2 && player1.a3 ||
       player1.b1 && player1.b2 && player1.b3 ||
@@ -39,7 +40,7 @@ const Game = () => {
         player2.a1 && player2.b1 && player2.c1 ||
         player2.a2 && player2.b2 && player2.c2 ||
         player2.a3 && player2.b3 && player2.c3 ||
-        
+
         player2.a1 && player2.b2 && player2.c3 ||
         player2.c1 && player2.b2 && player2.a3){
           setPlayer2({winner:true})
@@ -49,19 +50,44 @@ const Game = () => {
   const klickHandler = (event) => {
     const field = event.target.className.slice(0,2)
     event.target.innerText = nextPlayer ? "x" : "o";
-    nextPlayer ? setPlayer1({...player1, [field]:true}) : setPlayer2({...player2, [field]:true})
+    nextPlayer ? 
+    player2[field] ? alert("Zug nicht erlaubt!") : setPlayer1({...player1, [field]:true}) 
+    : player1[field] ? alert("Zug nicht erlaubt!") : setPlayer2({...player2, [field]:true})
     setNextPlayer(!nextPlayer)
     setTurns(prev => prev = prev + 1)
     console.log("field:", field, "nextPlayer:", nextPlayer);
     console.log("player1", player1);
     console.log("player2", player2);
   }
-  return turns < 9 ?
-   (<>
-    
+  const restart = () =>{
+    const fields = document.querySelectorAll(".field")
+    console.log(fields);
+    fields.forEach(div => div.innerText = "")
+    setPlayer1({
+      a1:false,a2:false,a3:false,
+      b1:false,b2:false,b3:false,
+      c1:false,c2:false,c3:false,
+      winner:false
+    })
+    setPlayer2({
+      a1:false,a2:false,a3:false,
+      b1:false,b2:false,b3:false,
+      c1:false,c2:false,c3:false,
+      winner:false
+    })
+    setTurns(0)
+  }
+
+  return !player1.winner && !player2.winner && turns >= 9 ?
+   (<div>
+      <h1>Spiel zuende</h1>
+      <button onClick={restart}> Restart</button>
+    </div>) 
+    :
+   (<>    
     <div>
-      <h1>{player1.winner && "Player One wins"}</h1>
-      <h1>{player2.winner && "Player Two wins"}</h1>
+      <h1>{player1.winner && `Player 1 wins`}</h1>
+      <h1>{player2.winner && `Player 2 wins`}</h1>
     </div>
     <div className="grid-game" onClick={(event) => klickHandler(event)}>
       <div className="a1 a field"></div>
@@ -76,11 +102,10 @@ const Game = () => {
       <div className="c2 c field"></div>
       <div className="c3 c field"></div>
     </div>    
+    <div>
+      <button onClick={restart}> Restart</button>
+    </div>
   </>)
-  :
-    (<div>
-      <h1>Spiel zuende</h1>
-    </div>)
 
 };
 
