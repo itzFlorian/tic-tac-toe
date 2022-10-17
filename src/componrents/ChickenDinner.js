@@ -7,4 +7,4 @@ const ChickenDinner = (player1, player2) => {
   );
 };
 
-export default ChickenDinner;<h1></h1>
+export default ChickenDinner;

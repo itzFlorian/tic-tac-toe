@@ -1,5 +1,6 @@
 import "../styles/game.css"
 import { useState, useEffect } from "react";
+import GameOver from "./GameOver";
 
 
 const Game = (name1, name2) => {
@@ -49,20 +50,23 @@ const Game = (name1, name2) => {
 
   const klickHandler = (event) => {
     const field = event.target.className.slice(0,2)
-    event.target.innerText = nextPlayer ? "x" : "o";
+    event.target.innerText = nextPlayer ? 
+    player2[field] ? "o" : "x" : 
+    player1[field] ? "x" : "o" ;
+
     nextPlayer ? 
-    player2[field] ? alert("Zug nicht erlaubt!") : setPlayer1({...player1, [field]:true}) 
-    : player1[field] ? alert("Zug nicht erlaubt!") : setPlayer2({...player2, [field]:true})
+    player2[field] ? alert("nicht erlaubt") 
+    : setPlayer1({...player1, [field]:true}) : 
+    player1[field] ? alert("nichterlaubt") 
+    : setPlayer2({...player2, [field]:true})
+
     setNextPlayer(!nextPlayer)
     setTurns(prev => prev = prev + 1)
-    console.log("field:", field, "nextPlayer:", nextPlayer);
-    console.log("player1", player1);
-    console.log("player2", player2);
+    // console.log("field:", field, "nextPlayer:", nextPlayer);
+    // console.log("player1", player1);
+    // console.log("player2", player2);
   }
   const restart = () =>{
-    const fields = document.querySelectorAll(".field")
-    console.log(fields);
-    fields.forEach(div => div.innerText = "")
     setPlayer1({
       a1:false,a2:false,a3:false,
       b1:false,b2:false,b3:false,
@@ -75,19 +79,21 @@ const Game = (name1, name2) => {
       c1:false,c2:false,c3:false,
       winner:false
     })
-    setTurns(0)
+    setTurns(0)   
+    const fields = document.querySelectorAll(".field") 
+    fields.forEach(div => div.innerText = "")
   }
 
   return !player1.winner && !player2.winner && turns >= 9 ?
    (<div>
-      <h1>Spiel zuende</h1>
-      <button onClick={restart}> Restart</button>
-    </div>) 
+    <h1>Spiel zuende</h1>
+    <button onClick={restart}> Restart</button>
+  </div>) 
     :
    (<>    
     <div>
-      <h1>{player1.winner && `Player 1 wins`}</h1>
-      <h1>{player2.winner && `Player 2 wins`}</h1>
+      <h3>{player1.winner && `Player 1 wins`}</h3>
+      <h3>{player2.winner && `Player 2 wins`}</h3>
     </div>
     <div className="grid-game" onClick={(event) => klickHandler(event)}>
       <div className="a1 a field"></div>
