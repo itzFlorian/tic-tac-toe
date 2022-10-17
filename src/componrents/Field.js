@@ -1,6 +1,5 @@
 const Field = ({restart, klickHandler}) => {
   return (
-    <div>
       <div className="grid-game" onClick={(event) => klickHandler(event)}>
       <div className="a1 a field"></div>
       <div className="a2 a field"></div>
@@ -13,12 +12,8 @@ const Field = ({restart, klickHandler}) => {
       <div className="c1 c field"></div>
       <div className="c2 c field"></div>
       <div className="c3 c field"></div>
-    </div>    
-    <div >
-      <button className="main-restart" onClick={restart}> Restart</button>
-    </div>
-    </div>
-  );
+    </div>   
+);
 };
 
 export default Field;

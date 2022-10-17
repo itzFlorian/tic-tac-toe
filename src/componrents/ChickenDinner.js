@@ -18,7 +18,10 @@ const ChickenDinner = ({player1, player2, player1name, player2name, klickHandler
       <h3>{player1.winner && `${player1name} wins`}</h3>
       <h3>{player2.winner && `${player2name} wins`}</h3>
     </div>
-    <Field restart={restart} klickHandler={klickHandler}/>
+    {player1.winner || player2.winner ? null : <Field restart={restart} klickHandler={klickHandler}/>}
+    <div >
+      <button className="main-restart" onClick={restart}> Restart</button>
+    </div>
     </>
 
   );
