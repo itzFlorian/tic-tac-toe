@@ -1,4 +1,4 @@
-const Field = ({restart, klickHandler}) => {
+const Field = ({klickHandler}) => {
   return (
       <div className="grid-game" onClick={(event) => klickHandler(event)}>
       <div className="a1 a field"></div>

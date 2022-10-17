@@ -43,7 +43,7 @@ function App() {
 
       player1.a1 && player1.b2 && player1.c3 ||
       player1.c1 && player1.b2 && player1.a3){
-        setPlayer1({ a1:false,a2:false,a3:false,
+        setPlayer1({a1:false,a2:false,a3:false,
           b1:false,b2:false,b3:false,
           c1:false,c2:false,c3:false,
           wins: player1.wins+1, winner:true})
@@ -62,7 +62,7 @@ function App() {
 
         player2.a1 && player2.b2 && player2.c3 ||
         player2.c1 && player2.b2 && player2.a3){
-          setPlayer2({ a1:false,a2:false,a3:false,
+          setPlayer2({a1:false,a2:false,a3:false,
             b1:false,b2:false,b3:false,
             c1:false,c2:false,c3:false,
             wins: player2.wins+1, winner:true})
