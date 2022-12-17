@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>TicTacToe</h1>
+      <h1>TicTacFlo</h1>
       <Game player1={player1} player2={player2} setPlayer1={setPlayer1} setPlayer2={setPlayer2} player1name={player1name} player2name={player2name}/>
     </div>
   );

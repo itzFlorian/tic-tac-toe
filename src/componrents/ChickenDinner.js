@@ -6,6 +6,7 @@ const ChickenDinner = ({player1, player2, player1name, player2name, klickHandler
     <>
     <div>
       <table>
+        <tr><td>X</td><td>O</td></tr>
         <tr>
           <td>{player1name}</td>
           <td>{player2name}</td>
